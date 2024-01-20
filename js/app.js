@@ -125,3 +125,6 @@ renderShop(lima);
 // }
 
 // loopShops();
+
+// Don't forget to ask about the above and how to view the html of the rendered document. View source doesn't show the HTML JS changed. So I am not 100% sure if the above is nested
+// correctly.
