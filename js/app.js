@@ -1,7 +1,7 @@
 'use strict'
 
 const seattle = {
-  location: 'seattle',
+  location: 'Seattle',
   minCustomers: 23,
   maxCustomers: 65,
   averageSales: 6.3,
@@ -12,7 +12,7 @@ const seattle = {
   }
 }
 const tokyo = {
-  location: 'tokyo',
+  location: 'Tokyo',
   minCustomers: 3,
   maxCustomers: 24,
   averageSales: 1.2,
@@ -23,7 +23,7 @@ const tokyo = {
   }
 }
 const dubai = {
-  location: 'dubai',
+  location: 'Dubai',
   minCustomers: 11,
   maxCustomers: 38,
   averageSales: 3.7,
@@ -34,7 +34,7 @@ const dubai = {
   }
 }
 const paris = {
-  location: 'paris',
+  location: 'Paris',
   minCustomers: 20,
   maxCustomers: 38,
   averageSales: 2.3,
@@ -45,7 +45,7 @@ const paris = {
   }
 }
 const lima = {
-  location: 'lima',
+  location: 'Lima',
   minCustomers: 2,
   maxCustomers: 16,
   averageSales: 4.6,
@@ -86,13 +86,27 @@ const shops = ['seattle', 'tokyo', 'dubai', 'paris', 'lima'];
   listDiv.appendChild(uList);
 
   const hoursOpen = 13;
+  let totalCookies = 0;
+  let hour = 6;
+  let timeIndicator = 'am: ';
 
   for (let i = 0; i < hoursOpen; i++){
-    const li = document.createElement('li');
-    li.textContent = shop.hourlySales[i];
-    listDiv.appendChild(li);
-  }
+    let li = document.createElement('li');
+    totalCookies += shop.hourlySales[i];
 
+    if (hour === 12) {
+      timeIndicator = 'pm: ';
+      li.textContent = '12' + timeIndicator + shop.hourlySales[i];
+    } else {
+      li.textContent = hour + timeIndicator + shop.hourlySales[i];
+    }
+
+    if (i === (hoursOpen - 1)){
+      li.textContent = 'Total: ' + totalCookies + ' cookies';
+    }
+    uList.appendChild(li);
+    hour++;
+  }
  }
 
 renderShop(seattle);

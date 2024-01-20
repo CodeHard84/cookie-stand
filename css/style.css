@@ -1,0 +1,9 @@
+p {
+  margin: 40px;
+  font-weight: bold;
+}
+
+ul {
+  margin: 40px;
+  list-style-type: disc;
+}
