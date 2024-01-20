@@ -2,90 +2,112 @@
 
 const seattle = {
   location: 'seattle',
-  minCustomers: 0,
-  maxCustomers: 0,
-  customers: 0,
+  minCustomers: 23,
+  maxCustomers: 65,
   averageSales: 6.3,
   hourlySales: [],
 
-  generateCustomers: function () {
-    this.customers = generateRandomNumberInRange(this.minCustomers, this.maxCustomers);
-  },
-
   generateSales: function () {
-    this.hourlySales = generateHourlySales(this.customers, this.averageSales);
+    this.hourlySales = generateHourlySales(this);
   }
 }
 const tokyo = {
   location: 'tokyo',
   minCustomers: 3,
   maxCustomers: 24,
-  customers: 0,
   averageSales: 1.2,
   hourlySales: [],
 
-  generateCustomers: function () {
-    this.customers = generateRandomNumberInRange(this.minCustomers, this.maxCustomers);
-  },
-
   generateSales: function () {
-    this.hourlySales = generateHourlySales(this.customers, this.averageSales);
+    this.hourlySales = generateHourlySales(this);
   }
 }
 const dubai = {
   location: 'dubai',
   minCustomers: 11,
   maxCustomers: 38,
-  customers: 0,
   averageSales: 3.7,
   hourlySales: [],
 
-  generateCustomers: function () {
-    this.customers = generateRandomNumberInRange(this.minCustomers, this.maxCustomers);
-  },
-
   generateSales: function () {
-    this.hourlySales = generateHourlySales(this.customers, this.averageSales);
+    this.hourlySales = generateHourlySales(this);
   }
 }
 const paris = {
   location: 'paris',
   minCustomers: 20,
   maxCustomers: 38,
-  customers: 0,
   averageSales: 2.3,
   hourlySales: [],
 
-  generateCustomers: function () {
-    this.customers = generateRandomNumberInRange(this.minCustomers, this.maxCustomers);
-  },
-
   generateSales: function () {
-    this.hourlySales = generateHourlySales(this.customers, this.averageSales);
+    this.hourlySales = generateHourlySales(this);
   }
 }
 const lima = {
   location: 'lima',
   minCustomers: 2,
   maxCustomers: 16,
-  customers: 0,
   averageSales: 4.6,
   hourlySales: [],
 
-  generateCustomers: function () {
-    this.customers = generateRandomNumberInRange(this.minCustomers, this.maxCustomers);
-  },
-
   generateSales: function () {
-    this.hourlySales = generateHourlySales(this.customers, this.averageSales);
+    this.hourlySales = generateHourlySales(this);
   }
 }
 
-// Random whole number between range
-function generateRandomNumberInRange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+const shops = ['seattle', 'tokyo', 'dubai', 'paris', 'lima'];
+
+ // Simulate purchases per hour
+ function generateHourlySales(shop){
+  let tempSales = [];
+  let hoursOpen = 13;
+
+  for (let i = 0; i < hoursOpen; i++) {
+    tempSales[i] = Math.floor(Math.random() * (shop.maxCustomers - shop.minCustomers + 1) + shop.minCustomers) * Math.floor(shop.averageSales);
+  }
+  return tempSales;
  }
 
- function generateHourlySales(){
-  return;
+ const mainBodyElement = document.getElementById('mainBody')
+
+ function renderShop(shop) {
+
+  shop.generateSales();
+
+  const listDiv = document.createElement('div');
+  mainBodyElement.appendChild(listDiv);
+  
+  const listHeader = document.createElement('p');
+  listHeader.textContent = shop.location;
+  listDiv.appendChild(listHeader);
+
+  const uList = document.createElement('ul');
+  listDiv.appendChild(uList);
+
+  const hoursOpen = 13;
+
+  for (let i = 0; i < hoursOpen; i++){
+    const li = document.createElement('li');
+    li.textContent = shop.hourlySales[i];
+    listDiv.appendChild(li);
+  }
+
  }
+
+renderShop(seattle);
+renderShop(tokyo);
+renderShop(dubai);
+renderShop(paris);
+renderShop(lima);
+
+// This doesn't work as expected. Assuming it is because it is passing a string and not an object.
+// function loopShops() {
+//   for (let i = 0; i < shops.length; i++) {
+//     let name = shops[i];
+//     console.log(name);
+//     renderShop(name);
+//   }
+// }
+
+// loopShops();
