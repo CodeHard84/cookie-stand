@@ -61,7 +61,7 @@ const shops = ['seattle', 'tokyo', 'dubai', 'paris', 'lima'];
  // Simulate purchases per hour
  function generateHourlySales(shop){
   let tempSales = [];
-  let hoursOpen = 13;
+  let hoursOpen = 14;
 
   for (let i = 0; i < hoursOpen; i++) {
     tempSales[i] = Math.floor(Math.random() * (shop.maxCustomers - shop.minCustomers + 1) + shop.minCustomers) * Math.floor(shop.averageSales);
@@ -85,28 +85,28 @@ const shops = ['seattle', 'tokyo', 'dubai', 'paris', 'lima'];
   const uList = document.createElement('ul');
   listDiv.appendChild(uList);
 
-  const hoursOpen = 13;
+  const hoursOpen = 14;
   let totalCookies = 0;
   let hour = 6;
   let timeIndicator = 'am: ';
 
   for (let i = 0; i < hoursOpen; i++){
-    let li = document.createElement('li');
     totalCookies += shop.hourlySales[i];
+    let li = document.createElement('li');
 
     if (hour === 12) {
       timeIndicator = 'pm: ';
       li.textContent = '12' + timeIndicator + shop.hourlySales[i];
+      hour = 0;
     } else {
       li.textContent = hour + timeIndicator + shop.hourlySales[i];
-    }
-
-    if (i === (hoursOpen - 1)){
-      li.textContent = 'Total: ' + totalCookies + ' cookies';
     }
     uList.appendChild(li);
     hour++;
   }
+  let li = document.createElement('li');
+  li.textContent = 'Total: ' + totalCookies + ' cookies';
+  uList.appendChild(li);
  }
 
 renderShop(seattle);
