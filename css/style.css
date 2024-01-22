@@ -3,6 +3,11 @@ p {
   font-weight: bold;
 }
 
+h2 {
+  margin: 40px;
+  font-weight: bold;
+}
+
 ul {
   margin: 40px;
   list-style-type: disc;

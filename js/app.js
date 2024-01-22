@@ -1,4 +1,5 @@
 'use strict'
+const shops = ['seattle', 'tokyo', 'dubai', 'paris', 'lima'];
 
 const seattle = {
   location: 'Seattle',
@@ -56,8 +57,6 @@ const lima = {
   }
 }
 
-const shops = ['seattle', 'tokyo', 'dubai', 'paris', 'lima'];
-
  // Simulate purchases per hour
  function generateHourlySales(shop){
   let tempSales = [];
@@ -69,7 +68,7 @@ const shops = ['seattle', 'tokyo', 'dubai', 'paris', 'lima'];
   return tempSales;
  }
 
- const mainBodyElement = document.getElementById('mainBody')
+ const mainBodyElement = document.getElementById('mainBody');
 
  function renderShop(shop) {
 
@@ -78,7 +77,7 @@ const shops = ['seattle', 'tokyo', 'dubai', 'paris', 'lima'];
   const listDiv = document.createElement('div');
   mainBodyElement.appendChild(listDiv);
   
-  const listHeader = document.createElement('p');
+  const listHeader = document.createElement('h2');
   listHeader.textContent = shop.location;
   listDiv.appendChild(listHeader);
 
