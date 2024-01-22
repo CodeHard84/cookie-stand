@@ -3,20 +3,23 @@
 // Global Constants
 const hours = ["6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm"];
 
-function Location(name, minCustomers, maxCustomers, averageSales) {
+function Location(shopLocation, minCustomers, maxCustomers, averageSales) {
   // This is the location constructor
-  this.name = name;
+  this.shopLocation = shopLocation;
   this.minCustomers = minCustomers;
   this.maxCustomers = maxCustomers;
   this.averageSales = averageSales;
 
   // Prototype functions
-  hourlySales = this.generateHourlySales(); // Do all the things
+  this.hourlySales = this.generateHourlySales(); // Do all the things
 
 }
 
-Location.prototype.generateHourlySales() {}
-Location.prototype.render() {}
+Location.prototype.generateHourlySales = function () {
+  console.log(this.shopLocation);
+}
+
+Location.prototype.render = function () {}
 
 // Location objects
 const locations = [
