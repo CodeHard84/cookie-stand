@@ -16,6 +16,7 @@ function Location(name, minCustomers, maxCustomers, averageSales) {
 }
 
 Location.prototype.generateHourlySales() {}
+Location.prototype.render() {}
 
 // Location objects
 const locations = [
@@ -30,4 +31,9 @@ const locations = [
 
 function randomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+// Create the objects
+for (let location of locations) {
+  location.render();
 }
