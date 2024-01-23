@@ -75,7 +75,6 @@ const locations = [
   new Location('Dubai', 11, 38, 3.7),
   new Location('Paris', 20, 38, 2.3),
   new Location('Lima', 2, 16, 4.6),
-  new Location('Mom\'s Basement', 1, 2, 3.7) // Test
 ];
 
 // Helper functions
