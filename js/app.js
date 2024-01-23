@@ -2,6 +2,7 @@
 
 // Global Constants
 const hours = ["6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm"];
+document.body.id = 'root';  // My idea, however, ChatGPT for proper syntax.
 
 function Location(shopLocation, minCustomers, maxCustomers, averageSales) {
   // This is the location constructor
@@ -9,17 +10,31 @@ function Location(shopLocation, minCustomers, maxCustomers, averageSales) {
   this.minCustomers = minCustomers;
   this.maxCustomers = maxCustomers;
   this.averageSales = averageSales;
+  this.totalSales = 0;
 
   // Prototype functions
-  this.hourlySales = this.generateHourlySales(); // Do all the things
-
+  this.hourlySales = this.generateHourlySales();
 }
 
 Location.prototype.generateHourlySales = function () {
-  console.log(this.shopLocation);
+  let tmpArray = [];
+  for (let hour in hours) {
+    let randomSales = Math.ceil(randomInRange(this.minCustomers, this.maxCustomers) * this.averageSales);
+    this.totalSales += randomSales;
+    tmpArray.push(randomSales);
+  }
+  return tmpArray;
 }
 
-Location.prototype.render = function () {}
+Location.prototype.render = function () {
+  createAppend('div', this.shopLocation, null, 'root')
+  createAppend('h2', null, this.shopLocation, this.shopLocation);
+  createAppend('ul', 'ul-main-' + this.shopLocation, null, this.shopLocation);
+  for (let hour in hours) {
+    createAppend('li', null, hours[hour] + ': ' + this.hourlySales[hour] + ' cookies', 'ul-main-'+ this.shopLocation);    
+  }
+  createAppend('li', null, 'Total: ' + this.totalSales + ' cookies', 'ul-main-'+ this.shopLocation);
+}
 
 // Location objects
 const locations = [
@@ -34,6 +49,18 @@ const locations = [
 
 function randomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function createAppend(element, elementID, text, parentID) {
+  let newElement = document.createElement(element);
+  if (text != null) {
+    newElement.textContent = text;
+  }
+  if (elementID != null) {
+    newElement.id = elementID;
+  }
+  let parentElement = document.getElementById(parentID);
+  parentElement.appendChild(newElement);
 }
 
 // Create the objects
