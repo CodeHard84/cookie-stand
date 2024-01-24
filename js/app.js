@@ -138,7 +138,7 @@ const locationInfo = {
   },
   'Lima': {
     'name': 'Pat\'s at Plaza de Armas',
-    'address1': '2554 MrRoboto Way',
+    'address1': '2354 Plaza Way',
     'address2': 'Lima, Peru',
     'hours': hours[0] + ' to ' + hours[hours.length - 1],
     'contact': '413-9723',
