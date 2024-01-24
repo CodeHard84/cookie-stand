@@ -146,11 +146,11 @@ const locationInfo = {
 };
 
 const locations = [
-  new Location('Seattle', 23, 65, 6.3, locationInfo),
-  new Location('Tokyo', 3, 23, 1.2, locationInfo),
-  new Location('Dubai', 11, 38, 3.7, locationInfo),
-  new Location('Paris', 20, 38, 2.3, locationInfo),
-  new Location('Lima', 2, 16, 4.6, locationInfo),
+  new Location('Seattle', 23, 65, 6.3, locationInfo.Seattle),
+  new Location('Tokyo', 3, 23, 1.2, locationInfo.Tokyo),
+  new Location('Dubai', 11, 38, 3.7, locationInfo.Dubai),
+  new Location('Paris', 20, 38, 2.3, locationInfo.Paris),
+  new Location('Lima', 2, 16, 4.6, locationInfo.Lima),
 ];
 
 // Helper functions
@@ -159,13 +159,27 @@ const locations = [
 // This should only work on the sales page.
 if (isSales()) {
   createTableHeader();
-
-
   // Create the objects
   for (let location of locations) {
     location.render();
   }
-
   createTableFooter();
+}
+
+// Index.html stuff
+Location.prototype.renderDetails = function () {
+  createAppend('article', 'mystores', this.locationInfo.name, 'mystores');
+  createAppend('article', null, this.locationInfo.address1, 'mystores');
+  createAppend('article', null, this.locationInfo.address2, 'mystores');
+  createAppend('article', null, this.locationInfo.hours, 'mystores');
+  createAppend('article', null, this.locationInfo.contact, 'mystores');
+  createAppend('p', null, null, 'mystores');
+}
+
+if (!isSales()) {
+  createAppend('article', 'mystores', null, 'root');
+  for (let location of locations) {
+    location.renderDetails();
+  }
 }
 
