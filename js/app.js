@@ -4,17 +4,54 @@
 const hours = ["6:00am", "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm",
   "2:00pm", "3:00pm", "4:00pm", "5:00pm", "6:00pm", "7:00pm"];
 
-const projections = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];  
+const projections = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
 
 document.body.id = 'root';  // My idea, however, ChatGPT for proper syntax.
 
-function Location(shopLocation, minCustomers, maxCustomers, averageSales) {
+// Helper Functions
+
+function isSales() {
+  // ChatGPT helped with this.
+  let url = window.location.href;
+  let fileName = url.substring(url.lastIndexOf('/') + 1);
+
+  if (fileName === 'sales.html') {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function randomInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function createAppend(element, elementID, text, parentID) {
+  let newElement = document.createElement(element);
+  if (text != null) {
+    newElement.textContent = text;
+  }
+  if (elementID != null) {
+    newElement.id = elementID;
+  }
+  // Catch if the parent is null and if it is append to root.
+  if (parentID != null) {
+    let parentElement = document.getElementById(parentID);
+    parentElement.appendChild(newElement);
+  } else {
+    parentElement = document.getElementById('root');
+    parentElement.appendChild(newElement);
+  }
+}
+
+function Location(shopLocation, minCustomers, maxCustomers, averageSales, locationInfo) {
   // This is the location constructor
   this.shopLocation = shopLocation;
   this.minCustomers = minCustomers;
   this.maxCustomers = maxCustomers;
   this.averageSales = averageSales;
   this.totalSales = 0;
+  this.locationInfo = locationInfo;
 
   // Prototype functions
   this.hourlySales = this.generateHourlySales();
@@ -68,44 +105,67 @@ Location.prototype.render = function () {
   createAppend('td', null, this.totalSales, 'table-row-' + this.shopLocation);
 }
 
-// Location objects
+// Location objects & Helpers
+
+const locationInfo = {
+  'Seattle': {
+    'name': 'Pat\'s at Pikes Place Market',
+    'address1': '1701 Space Center Dr',
+    'address2': 'Seattle, Washington',
+    'hours': hours[0] + ' to ' + hours[hours.length - 1],
+    'contact': '867-5309',
+  },
+  'Tokyo': {
+    'name': 'Domo Pat\'s Salmon Cookies',
+    'address1': '2554 MrRoboto Way',
+    'address2': 'Tokyo, Japan',
+    'hours': hours[0] + ' to ' + hours[hours.length - 1],
+    'contact': '369-2121',
+  },
+  'Dubai': {
+    'name': 'Pat\'s on the Dunes',
+    'address1': '1111 Tallest Building Drive',
+    'address2': 'Dubai, United Arab Emirates',
+    'hours': hours[0] + ' to ' + hours[hours.length - 1],
+    'contact': '871-3838',
+  },
+  'Paris': {
+    'name': 'Pat\'s Under the Tower',
+    'address1': '1 I Fell Way',
+    'address2': 'Paris, France',
+    'hours': hours[0] + ' to ' + hours[hours.length - 1],
+    'contact': '432-7878',
+  },
+  'Lima': {
+    'name': 'Pat\'s at Plaza de Armas',
+    'address1': '2554 MrRoboto Way',
+    'address2': 'Lima, Peru',
+    'hours': hours[0] + ' to ' + hours[hours.length - 1],
+    'contact': '413-9723',
+  }
+};
+
 const locations = [
-  new Location('Seattle', 23, 65, 6.3),
-  new Location('Tokyo', 3, 23, 1.2),
-  new Location('Dubai', 11, 38, 3.7),
-  new Location('Paris', 20, 38, 2.3),
-  new Location('Lima', 2, 16, 4.6),
+  new Location('Seattle', 23, 65, 6.3, locationInfo),
+  new Location('Tokyo', 3, 23, 1.2, locationInfo),
+  new Location('Dubai', 11, 38, 3.7, locationInfo),
+  new Location('Paris', 20, 38, 2.3, locationInfo),
+  new Location('Lima', 2, 16, 4.6, locationInfo),
 ];
 
 // Helper functions
 
-createTableHeader();
 
-function randomInRange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+// This should only work on the sales page.
+if (isSales()) {
+  createTableHeader();
+
+
+  // Create the objects
+  for (let location of locations) {
+    location.render();
+  }
+
+  createTableFooter();
 }
 
-function createAppend(element, elementID, text, parentID) {
-  let newElement = document.createElement(element);
-  if (text != null) {
-    newElement.textContent = text;
-  }
-  if (elementID != null) {
-    newElement.id = elementID;
-  }
-  // Catch if the parent is null and if it is append to root.
-  if (parentID != null) {
-    let parentElement = document.getElementById(parentID);
-    parentElement.appendChild(newElement);
-  } else {
-    parentElement = document.getElementById('root');
-    parentElement.appendChild(newElement);
-  }
-}
-
-// Create the objects
-for (let location of locations) {
-  location.render();
-}
-
-createTableFooter();
