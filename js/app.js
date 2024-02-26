@@ -6,8 +6,6 @@ const hours = ["6:00am", "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12
 
 const projections = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
 
-let table = null;
-
 document.body.id = 'root';  // My idea, however, ChatGPT for proper syntax.
 
 // Helper Functions
@@ -85,14 +83,14 @@ for (let hour in hours) {
 }
 
 function createTableFooter() {
-  
+
   let tfoot = document.getElementById('table-footer');
 
-  if(tfoot) {
+  if (tfoot) {
     tfoot.remove();
   }
 
-  createAppend('tfoot', 'table-footer', 'Totals', 'table-main');
+  createAppend('tfoot', 'table-footer', 'Hourly Totals for All Locations', 'table-main');
   for (let hour in hours) {
     createAppend('td', null, hourByHour[hour], 'table-footer');
   }
@@ -106,46 +104,46 @@ function createTableBody() {
 Location.prototype.render = function () {
   createAppend('tr', 'table-row-' + this.shopLocation, this.shopLocation, 'data-row');
   for (let hour in hours) {
-    createAppend('td', null, this.hourlySales[hour], 'table-row-' + this.shopLocation);
+    createAppend('td', 'tableData', this.hourlySales[hour], 'table-row-' + this.shopLocation);
     hourByHour[hour] = this.hourlySales[hour] + hourByHour[hour];
     hourByHourTotal += this.hourlySales[hour];
   }
-  createAppend('td', null, this.totalSales, 'table-row-' + this.shopLocation);
+  createAppend('td', 'totalSales', this.totalSales, 'table-row-' + this.shopLocation);
 }
 
 // Location objects & Helpers
 
 const locationInfo = {
   'Seattle': {
-    'name': 'Pat\'s at Pikes Place Market',
+    'name': 'Seattle',
     'address1': '1701 Space Center Dr',
     'address2': 'Seattle, Washington',
     'hours': hours[0] + ' to ' + hours[hours.length - 1],
     'contact': '867-5309',
   },
   'Tokyo': {
-    'name': 'Domo Pat\'s Salmon Cookies',
+    'name': 'Tokyo',
     'address1': '2554 MrRoboto Way',
     'address2': 'Tokyo, Japan',
     'hours': hours[0] + ' to ' + hours[hours.length - 1],
     'contact': '369-2121',
   },
   'Dubai': {
-    'name': 'Pat\'s on the Dunes',
+    'name': 'Dubai',
     'address1': '1111 Tallest Building Drive',
     'address2': 'Dubai, United Arab Emirates',
     'hours': hours[0] + ' to ' + hours[hours.length - 1],
     'contact': '871-3838',
   },
   'Paris': {
-    'name': 'Pat\'s Under the Tower',
+    'name': 'Paris',
     'address1': '1 I Fell Way',
     'address2': 'Paris, France',
     'hours': hours[0] + ' to ' + hours[hours.length - 1],
     'contact': '432-7878',
   },
   'Lima': {
-    'name': 'Pat\'s at Plaza de Armas',
+    'name': 'Lima',
     'address1': '2354 Plaza Way',
     'address2': 'Lima, Peru',
     'hours': hours[0] + ' to ' + hours[hours.length - 1],
@@ -209,12 +207,20 @@ if (isSales()) {
 }
 
 // Index.html stuff
+// Location.prototype.renderDetails = function () {
+//   createAppend('h2', 'mystores', this.locationInfo.name, 'mystores');
+//   createAppend('article', null, this.locationInfo.address1, 'mystores');
+//   createAppend('article', null, this.locationInfo.address2, 'mystores');
+//   createAppend('article', null, this.locationInfo.hours, 'mystores');
+//   createAppend('article', null, this.locationInfo.contact, 'mystores');
+//   createAppend('p', null, null, 'mystores');
+// }
+
 Location.prototype.renderDetails = function () {
-  createAppend('article', 'mystores', this.locationInfo.name, 'mystores');
-  createAppend('article', null, this.locationInfo.address1, 'mystores');
-  createAppend('article', null, this.locationInfo.address2, 'mystores');
-  createAppend('article', null, this.locationInfo.hours, 'mystores');
-  createAppend('article', null, this.locationInfo.contact, 'mystores');
+  createAppend('h2', 'mystores', this.locationInfo.name, 'mystores');
+  createAppend('article', null, 'Hours Open: ' + this.locationInfo.hours, 'mystores');
+  createAppend('article', null, 'Contact Info:' + this.locationInfo.contact, 'mystores');
+  createAppend('article', null, 'Location: ' + this.locationInfo.address1 + ' ' + this.locationInfo.address2, 'mystores');
   createAppend('p', null, null, 'mystores');
 }
 

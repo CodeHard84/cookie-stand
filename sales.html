@@ -7,37 +7,40 @@
   <title>Pat's Sales</title>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <header>
-    <h1>Pat's Sales</h1>
+  <header id="navBar">
+    <div>
+      <h1 id="headerText">Welcome to Pat's Salmon Cookies!</h1>
+    </div>
+    <div id="linkBar">
+      <a href="index.html">Home</a>
+      <a href="sales.html">Sales Data</a>
+    </div>
   </header>
   <main>
     <div id="addStoreDiv">
-      <h2>Add a Store</h2>
       <form id="addStoreForm">
         <fieldset>
-          <legend>Store Information</legend>
+          <legend>Add a new store to the table!!!</legend>
           <label for="locationName">Location Name:</label>
           <input type="text" name="locationName" required />
-          <label for="minCustomers">Minimum Customers:</label>
+          <label for="minCustomers">Minimum Customers Per Hour:</label>
           <input type="number" name="minCustomers" required />
-          <label for="maxCustomers">Maximum Customers:</label>
+          <label for="maxCustomers">Maximum Customers Per Hour:</label>
           <input type="number" name="maxCustomers" required />
-          <label for="avgSales">Average Sales:</label>
+          <label for="avgSales">Average Cookies Per Sale:</label>
           <input type="number" name="avgSales" required />
-          <!-- Use a span to make inline notes -->
           <!-- The constructor still needs some things: address, etc. -->
+          <span><button type="submit">Click here to add!</button></span>
         </fieldset>
-        <button type="submit">Add Store</button>
       </form>
-    </div>
-    <div id="storeLocations">
-      <h2>Pat's Stores:</h2>
     </div>
   </main>
 </body>
 <script src="js/app.js"></script>
+<footer id="footer">&copy; 2024 Pat's Salmon Cookies</footer>
 
 </html>
