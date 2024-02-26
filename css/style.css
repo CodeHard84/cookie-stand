@@ -91,6 +91,7 @@ td#totalSales {
   /* border: none; */
   border: solid grey;
   border-left: solid black 1px;
+  border-right: solid grey 1px;
 }
 
 #data-row #tableData,
