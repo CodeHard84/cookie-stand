@@ -73,11 +73,7 @@ table {
 tbody {
   color: black;
   background-color: salmon;
-}
-
-#data-row #tableData,
-#data-row tr {
-  border: solid black 1px;
+  /* border-right: solid black 1px; */
 }
 
 th, tfoot, #headrow, td:last-child {
@@ -90,10 +86,22 @@ th, tfoot, #headrow, td:last-child {
 
 td#totalSales {
   /* This works */
-  border: solid red;
+  /* border: solid red; */
   /* This doesn't */
   /* border: none; */
+  border: solid grey;
+  border-left: solid black 1px;
 }
+
+#data-row #tableData,
+#data-row tr {
+  border: solid black 1px;
+  border-right: solid black 1px;
+}
+
+/* tbody + tr td {
+  border-right: solid black 1px;
+} */
 
 /* button {
   margin: 0;
