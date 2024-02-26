@@ -6,6 +6,8 @@ const hours = ["6:00am", "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12
 
 const projections = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
 
+let table = null;
+
 document.body.id = 'root';  // My idea, however, ChatGPT for proper syntax.
 
 // Helper Functions
@@ -67,11 +69,12 @@ Location.prototype.generateHourlySales = function () {
 // Have to do this outside the render function or it will make a table for each location.
 function createTableHeader() {
   createAppend('table', 'table-main', null, 'root');
-  createAppend('th', null, null, 'table-main');
+  createAppend('thead', 'header-main', null, 'table-main');
+  createAppend('tr', 'headrow', 'Locations', 'table-main');
   for (let hour in hours) {
-    createAppend('th', null, hours[hour], 'table-main');
+    createAppend('th', null, hours[hour], 'headrow');
   }
-  createAppend('th', 'th-daily-totals', 'Daily Location Total', 'table-main');
+  createAppend('th', 'th-daily-totals', 'Daily Location Total', 'headrow');
 }
 
 let hourByHour = [];
@@ -82,15 +85,26 @@ for (let hour in hours) {
 }
 
 function createTableFooter() {
-  createAppend('th', 'table-footer', 'Totals', 'table-main');
-  for (let hour in hours) {
-    createAppend('td', null, hourByHour[hour], 'table-main');
+  
+  let tfoot = document.getElementById('table-footer');
+
+  if(tfoot) {
+    tfoot.remove();
   }
-  createAppend('td', null, hourByHourTotal, 'table-main');
+
+  createAppend('tfoot', 'table-footer', 'Totals', 'table-main');
+  for (let hour in hours) {
+    createAppend('td', null, hourByHour[hour], 'table-footer');
+  }
+  createAppend('td', null, hourByHourTotal, 'table-footer');
+}
+
+function createTableBody() {
+  createAppend('tbody', 'data-row', '', 'table-main');
 }
 
 Location.prototype.render = function () {
-  createAppend('tr', 'table-row-' + this.shopLocation, this.shopLocation, 'table-main');
+  createAppend('tr', 'table-row-' + this.shopLocation, this.shopLocation, 'data-row');
   for (let hour in hours) {
     createAppend('td', null, this.hourlySales[hour], 'table-row-' + this.shopLocation);
     hourByHour[hour] = this.hourlySales[hour] + hourByHour[hour];
@@ -153,17 +167,40 @@ const locations = [
 // This should only work on the sales page.
 // sales.html stuff
 
-// Handle the add store form.
-const form = document.getElementById('addStoreForm');
+function handleSubmit(event) {
+  // Why don't I get code completion here??? Specifically with event?
 
-function handleSubmit() {
-  //  TBD
+  // Prevent the default html behaviour on submit and clear the form.
+  event.preventDefault();
+
+  // Gather all the data and use the Location constructor.
+  // shopLocation, minCustomers, maxCustomers, averageSales, locationInfo
+
+  const locationName = event.target.locationName.value;
+  const minCustomers = event.target.minCustomers.value;
+  const maxCustomers = event.target.maxCustomers.value;
+  const averageSales = event.target.avgSales.value;
+  const locationInfo = null;
+
+  const newShop = new Location(locationName, minCustomers, maxCustomers, averageSales, locationInfo);
+  locations.push(newShop);
+
+  // This doesn't work as expected.
+  newShop.render();
+  createTableFooter();
+
+  // Clear the form
+  event.target.reset();
 }
 
-form.addEventListener('submit', handleSubmit);
-
 if (isSales()) {
+  // Handle the add store form.
+  const form = document.getElementById('addStoreForm');
+  form.addEventListener('submit', handleSubmit);
+
+  // Create the table.
   createTableHeader();
+  createTableBody();
   // Create the objects
   for (let location of locations) {
     location.render();

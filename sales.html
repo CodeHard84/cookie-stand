@@ -19,14 +19,14 @@
       <form id="addStoreForm">
         <fieldset>
           <legend>Store Information</legend>
-          <label for="location-name">Location Name:</label>
-          <input type="text" name="location-name" />
+          <label for="locationName">Location Name:</label>
+          <input type="text" name="locationName" required />
           <label for="minCustomers">Minimum Customers:</label>
-          <input type="text" name="minCustomers" />
+          <input type="number" name="minCustomers" required />
           <label for="maxCustomers">Maximum Customers:</label>
-          <input type="text" name="maxCustomers" />
+          <input type="number" name="maxCustomers" required />
           <label for="avgSales">Average Sales:</label>
-          <input type="text" name="avgSales" />
+          <input type="number" name="avgSales" required />
           <!-- Use a span to make inline notes -->
           <!-- The constructor still needs some things: address, etc. -->
         </fieldset>
