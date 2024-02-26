@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +8,36 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <main>
+  <header>
     <h1>Pat's Sales</h1>
-    <h2>Add a Store</h2>
-    <form>
-      <fieldset>
-        <legend>Store Information</legend>
-      </fieldset>
-    </form>
-    <h2>Pat's Stores:</h2>
+  </header>
+  <main>
+    <div id="addStoreDiv">
+      <h2>Add a Store</h2>
+      <form id="addStoreForm">
+        <fieldset>
+          <legend>Store Information</legend>
+          <label for="location-name">Location Name:</label>
+          <input type="text" name="location-name" />
+          <label for="minCustomers">Minimum Customers:</label>
+          <input type="text" name="minCustomers" />
+          <label for="maxCustomers">Maximum Customers:</label>
+          <input type="text" name="maxCustomers" />
+          <label for="avgSales">Average Sales:</label>
+          <input type="text" name="avgSales" />
+          <!-- Use a span to make inline notes -->
+          <!-- The constructor still needs some things: address, etc. -->
+        </fieldset>
+        <button type="submit">Add Store</button>
+      </form>
+    </div>
+    <div id="storeLocations">
+      <h2>Pat's Stores:</h2>
+    </div>
   </main>
 </body>
 <script src="js/app.js"></script>
+
 </html>

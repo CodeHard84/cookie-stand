@@ -11,16 +11,10 @@ document.body.id = 'root';  // My idea, however, ChatGPT for proper syntax.
 // Helper Functions
 
 function isSales() {
-  // ChatGPT helped with this.
-  let url = window.location.href;
-  let fileName = url.substring(url.lastIndexOf('/') + 1);
-
-  if (fileName === 'sales.html') {
-    return true;
-  } else {
-    return false;
-  }
+  // Had to refactor because of how submit works.
+  return window.location.pathname.endsWith('sales.html');
 }
+
 
 function randomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -157,6 +151,17 @@ const locations = [
 
 
 // This should only work on the sales page.
+// sales.html stuff
+
+// Handle the add store form.
+const form = document.getElementById('addStoreForm');
+
+function handleSubmit() {
+  //  TBD
+}
+
+form.addEventListener('submit', handleSubmit);
+
 if (isSales()) {
   createTableHeader();
   // Create the objects
