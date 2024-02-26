@@ -182,4 +182,3 @@ if (!isSales()) {
     location.renderDetails();
   }
 }
-
